@@ -1,0 +1,74 @@
+﻿<link href="Stylesheet.css" rel="stylesheet">
+@model MVCMeetingPlanner.Models.MeetingTitleViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="TimeplannerModels" asp-action="Index" method="get">
+    <div class="Filter-container" >
+        <select class="Filter-dropdown" asp-for="SortPeoples" asp-items="Model.SortPeoples" style="display: inline-block;">
+            <option value="">All</option>
+        </select>
+        <div class="Filter-search" style="display: inline-block; float: right;">
+            <p class="search-titleTxt">Free search</p>
+            <input type="text" name="SearchString">
+            <input type="submit" value="Filter" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeplannerModels[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeplannerModels[0].People)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeplannerModels[0].TimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeplannerModels[0].TimeEnd)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.TimeplannerModels) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.People)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeEnd)
+            </td>
+            <td>
+                <a class="edit "asp-action="Edit" asp-route-id="@item.Id" 
+    style="
+    border: 1px solid;
+    padding: 3px 11px;
+    background-color: #007bff;
+    color: #ffffff;
+    ">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
